@@ -25,7 +25,7 @@ data "aws_subnets" "subnets" {
 }
 
 locals {
-  
+
   vpc_filter = var.vpc_id == null && length(var.vpc_filter) == 0 ? [
     {
       name   = "tag:Name"

@@ -8,7 +8,7 @@ locals {
 }
 
 resource "aws_elasticache_replication_group" "this" {
-  count = var.create ? 1 : 0
+  count                       = var.create ? 1 : 0
   description                 = "Terraform-managed Elasticache Redis"
   replication_group_id        = var.elasticache_cluster_name
   apply_immediately           = var.apply_immediately
@@ -49,16 +49,16 @@ resource "aws_elasticache_replication_group" "this" {
   preferred_cache_cluster_azs = var.preferred_cache_cluster_azs
   replicas_per_node_group     = var.replicas_per_node_group
 
-  security_group_names        = var.security_group_names
-  security_group_ids          = local.security_group_ids
-  snapshot_arns               = var.snapshot_arns
-  snapshot_name               = var.snapshot_name
-  snapshot_retention_limit    = var.snapshot_retention_limit
-  snapshot_window             = var.snapshot_window
-  subnet_group_name           = local.subnet_group_name
-  transit_encryption_enabled  = var.transit_encryption_enabled
-  transit_encryption_mode     = var.transit_encryption_mode
-  user_group_ids              = var.user_group_ids
+  security_group_names       = var.security_group_names
+  security_group_ids         = local.security_group_ids
+  snapshot_arns              = var.snapshot_arns
+  snapshot_name              = var.snapshot_name
+  snapshot_retention_limit   = var.snapshot_retention_limit
+  snapshot_window            = var.snapshot_window
+  subnet_group_name          = local.subnet_group_name
+  transit_encryption_enabled = var.transit_encryption_enabled
+  transit_encryption_mode    = var.transit_encryption_mode
+  user_group_ids             = var.user_group_ids
 
   tags = local.tags
 }
@@ -114,14 +114,14 @@ resource "aws_vpc_security_group_ingress_rule" "this" {
 }
 
 resource "aws_vpc_security_group_egress_rule" "this" {
-  count  = var.create ? 1 : 0
+  count             = var.create ? 1 : 0
   security_group_id = aws_security_group.this[0].id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = -1
 }
 
 resource "aws_elasticache_subnet_group" "this" {
-  count       = var.create ? 1 : 0  
+  count       = var.create ? 1 : 0
   name        = "${var.elasticache_cluster_name}-subnet-group"
   subnet_ids  = data.aws_subnets.subnets.ids
   description = "Subnet group for elasticache"

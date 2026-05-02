@@ -114,7 +114,7 @@ variable "kms_key_arn" {
 variable "log_delivery_configuration" {
   description = "(Redis OSS or Valkey) Specifies the destination and format of Redis OSS/Valkey SLOWLOG or Redis OSS/Valkey Engine Log"
   type        = any
-  default = {}
+  default     = {}
 }
 
 variable "maintenance_window" {
@@ -266,4 +266,3 @@ variable "parameters" {
   type        = list(map(string))
   default     = []
 }
-
