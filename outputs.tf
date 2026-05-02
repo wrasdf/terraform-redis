@@ -1,6 +1,9 @@
-output "elasticache_cluster_address" {
-  description = "The address of the Elasticache cluster"
-  value       = aws_elasticache_replication_group.this[0].primary_endpoint_address
+output "elasticache_cluster_endpoint" {
+  value = coalesce(
+    aws_elasticache_replication_group.this[0].configuration_endpoint_address,
+    aws_elasticache_replication_group.this[0].primary_endpoint_address
+  )
+  description = "Configuration (cluster-mode enabled) or primary (cluster-mode disabled) endpoint of the cluster instance"
 }
 
 output "elasticache_cluster-subnet-group-name" {
