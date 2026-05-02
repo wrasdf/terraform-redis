@@ -114,12 +114,7 @@ variable "kms_key_arn" {
 variable "log_delivery_configuration" {
   description = "(Redis OSS or Valkey) Specifies the destination and format of Redis OSS/Valkey SLOWLOG or Redis OSS/Valkey Engine Log"
   type        = any
-  default = {
-    slow-log = {
-      destination_type = "cloudwatch-logs"
-      log_format       = "json"
-    }
-  }
+  default = {}
 }
 
 variable "maintenance_window" {

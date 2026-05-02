@@ -14,15 +14,6 @@ module "redis_cluster" {
   node_type                   = "cache.t3.small"
   snapshot_retention_limit    = 2
   num_node_groups             = 1   // (shards)
-  parameters = [
-    { name = "notify-keyspace-events", value = "KA" }
-  ]
-
-  tags = {
-    Team = "Platform"
-    Description = "Elasticache replication group for testing Elasticache module"
-  }
-
 }
 ```
 
@@ -37,19 +28,29 @@ module "redis_cluster" {
   replicas_per_node_group     = 1
   node_type                   = "cache.t3.small"
   snapshot_retention_limit    = 2
-  num_node_groups             = 1
+  num_node_groups             = 2
   additional_ingress_cidrs    = ["10.50.0.0/16"] // management vpc cidr
   parameters = [
     { name = "notify-keyspace-events", value = "KA" }
   ]
+  preferred_cache_cluster_azs = ["ap-southeast-2a", "ap-southeast-2b", "ap-southeast-2c"]
+ 
+  log_delivery_configuration = {
+    slow-log = {
+      destination_type = "cloudwatch-logs"
+      log_format       = "json"
+    }
+    engine-log = {
+      destination_type = "cloudwatch-logs"
+      log_format       = "text"
+    }
+  }  
 
   tags = {
     Team = "Platform"
     Description = "Elasticache replication group for testing Elasticache module"
   }
-
 }
-
 ```
 
 
